@@ -71,7 +71,7 @@ test('displays all chirps when search keyword is empty', function () {
     });
 });
 
-test('limits results to 50 chirps', function () {
+test('limits results to 15 chirps per page', function () {
     $user = User::factory()->create();
     Chirp::factory()->count(60)->for($user)->create(['message' => 'Test chirp']);
 
@@ -79,11 +79,11 @@ test('limits results to 50 chirps', function () {
 
     $response->assertSuccessful();
     $response->assertViewHas('chirps', function ($chirps) {
-        return $chirps->count() === 50;
+        return $chirps->count() === 15;
     });
 });
 
-test('search with 50 chirp limit', function () {
+test('search with 15 chirp limit per page', function () {
     $user = User::factory()->create();
     Chirp::factory()->count(60)->for($user)->create(['message' => 'Searchable chirp']);
     Chirp::factory()->count(10)->for($user)->create(['message' => 'Different chirp']);
@@ -92,7 +92,7 @@ test('search with 50 chirp limit', function () {
 
     $response->assertSuccessful();
     $response->assertViewHas('chirps', function ($chirps) {
-        return $chirps->count() === 50;
+        return $chirps->count() === 15;
     });
 });
 
