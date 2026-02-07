@@ -10,14 +10,20 @@ class ChirpController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+
         $chirps = Chirp::with('user')
+            ->search($search)
             ->latest()
             ->take(50)  // Limit to 50 most recent chirps
             ->get();
 
-        return view('home', ['chirps' => $chirps]);
+        return view('home', [
+            'chirps' => $chirps,
+            'search' => $search ?? '',
+        ]);
     }
 
     public function store(Request $request)
