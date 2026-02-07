@@ -3,10 +3,23 @@
     "allow": [
       "Bash(php artisan:*)",
       "Bash(vendor/bin/pint:*)",
+      "WebFetch(domain:daisyui.com)",
       "mcp__laravel-boost__list-routes",
       "mcp__laravel-boost__application-info",
       "mcp__laravel-boost__database-schema",
-      "mcp__serena__check_onboarding_performed"
+      "mcp__laravel-boost__search-docs",
+      "mcp__laravel-boost__tinker",
+      "mcp__laravel-boost__database-query",
+      "mcp__serena__onboarding",
+      "mcp__serena__list_dir",
+      "mcp__serena__write_memory",
+      "mcp__serena__read_memory",
+      "mcp__serena__find_symbol",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__replace_symbol_body",
+      "mcp__serena__check_onboarding_performed",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs"
     ]
   },
   "enableAllProjectMcpServers": true,
