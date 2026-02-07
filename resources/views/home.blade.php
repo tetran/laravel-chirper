@@ -87,5 +87,12 @@
                 </div>
             @endforelse
         </div>
+
+        <!-- Pagination -->
+        @if ($chirps->hasPages())
+            <div class="mt-8">
+                {{ $chirps->links() }}
+            </div>
+        @endif
     </div>
 </x-layout>
