@@ -12,6 +12,7 @@ While in progress, ALWAYS update `docs/progress/issue-XX.md` as the phases and s
 3. **Confirm the plan** - Confirm with the client if the plan can be proceeed. If not, go back to step #3.
 4. **Update the GitHub Issue** - Exit plan mode, and document the plan in the Issue.
 5. **Create a Git Branch** - Create a feature branch for the issue
+  * If not specified, ALL feature branches should be derived from the LATEST main branch.
 6. **Implement** - Write code and tests
 7. **Testing** - Ensure all unit tests pass. When implementing some feature, make sure UI tests are performed with Playwright MCP, too.
 

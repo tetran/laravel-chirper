@@ -19,8 +19,11 @@
       "mcp__serena__replace_symbol_body",
       "mcp__serena__check_onboarding_performed",
       "mcp__serena__list_memories",
+      "mcp__serena__initial_instructions",
+      "mcp__serena__find_file",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(composer test:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

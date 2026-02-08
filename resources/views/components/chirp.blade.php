@@ -23,7 +23,13 @@
             <div class="min-w-0 flex-1">
                 <div class="flex justify-between w-full">
                     <div class="flex items-center gap-1">
-                        <span class="text-sm font-semibold">{{ $chirp->user ? $chirp->user->name : 'Anonymous' }}</span>
+                        @if ($chirp->user)
+                            <a href="{{ route('profile.show', $chirp->user) }}" class="text-sm font-semibold link link-hover">
+                                {{ $chirp->user->name }}
+                            </a>
+                        @else
+                            <span class="text-sm font-semibold">Anonymous</span>
+                        @endif
                         <span class="text-base-content/60">·</span>
                         <span class="text-sm text-base-content/60">{{ $chirp->created_at->diffForHumans() }}</span>
                         @if ($chirp->updated_at->gt($chirp->created_at->addSeconds(5)))
