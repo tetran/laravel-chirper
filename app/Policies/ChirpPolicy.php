@@ -48,6 +48,14 @@ class ChirpPolicy
     }
 
     /**
+     * Determine whether the user can like the model.
+     */
+    public function like(User $user, Chirp $chirp): bool
+    {
+        return ! $chirp->user()->is($user);
+    }
+
+    /**
      * Determine whether the user can restore the model.
      */
     public function restore(User $user, Chirp $chirp): bool

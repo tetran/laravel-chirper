@@ -14,10 +14,18 @@ class ChirpController extends Controller
     {
         $search = $request->input('search');
 
-        $chirps = Chirp::with('user')
+        $query = Chirp::with('user')
+            ->withCount('likes')
             ->search($search)
-            ->latest()
-            ->paginate(15);
+            ->latest();
+
+        if (auth()->check()) {
+            $query->with(['likes' => function ($q) {
+                $q->where('user_id', auth()->id());
+            }]);
+        }
+
+        $chirps = $query->paginate(15);
 
         return view('home', [
             'chirps' => $chirps,
