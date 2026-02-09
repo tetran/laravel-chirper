@@ -41,7 +41,10 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function browserLogin(App\Models\User $user): \Pest\Browser\Api\AwaitableWebpage
 {
-    // ..
+    return visit('/login')
+        ->fill('email', $user->email)
+        ->fill('password', 'password')
+        ->submit('form');
 }
