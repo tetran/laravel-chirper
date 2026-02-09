@@ -76,6 +76,37 @@ test('like count is displayed on the home page', function () {
     });
 });
 
+test('like via ajax returns json with count and status', function () {
+    $user = User::factory()->create();
+    $chirpOwner = User::factory()->create();
+    $chirp = Chirp::factory()->for($chirpOwner)->create();
+
+    $response = actingAs($user)
+        ->postJson("/chirps/{$chirp->id}/likes");
+
+    $response->assertOk()
+        ->assertJson([
+            'likes_count' => 1,
+            'is_liked' => true,
+        ]);
+});
+
+test('unlike via ajax returns json with count and status', function () {
+    $user = User::factory()->create();
+    $chirpOwner = User::factory()->create();
+    $chirp = Chirp::factory()->for($chirpOwner)->create();
+    $chirp->likes()->attach($user);
+
+    $response = actingAs($user)
+        ->deleteJson("/chirps/{$chirp->id}/likes");
+
+    $response->assertOk()
+        ->assertJson([
+            'likes_count' => 0,
+            'is_liked' => false,
+        ]);
+});
+
 test('likes are deleted when chirp is deleted', function () {
     $user = User::factory()->create();
     $chirpOwner = User::factory()->create();

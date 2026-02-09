@@ -5,6 +5,7 @@
       "Bash(composer test:*)",
       "Bash(composer show:*)",
       "Bash(vendor/bin/pint:*)",
+      "Bash(vendor/bin/pest:*)",
       "WebFetch(domain:daisyui.com)",
       "mcp__laravel-boost__list-routes",
       "mcp__laravel-boost__application-info",
