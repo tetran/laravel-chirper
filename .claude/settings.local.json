@@ -2,6 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(php artisan:*)",
+      "Bash(composer test:*)",
+      "Bash(composer show:*)",
       "Bash(vendor/bin/pint:*)",
       "WebFetch(domain:daisyui.com)",
       "mcp__laravel-boost__list-routes",
@@ -10,6 +12,8 @@
       "mcp__laravel-boost__search-docs",
       "mcp__laravel-boost__tinker",
       "mcp__laravel-boost__database-query",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
       "mcp__serena__onboarding",
       "mcp__serena__list_dir",
       "mcp__serena__write_memory",
@@ -21,9 +25,10 @@
       "mcp__serena__list_memories",
       "mcp__serena__initial_instructions",
       "mcp__serena__find_file",
-      "mcp__context7__resolve-library-id",
-      "mcp__context7__query-docs",
-      "Bash(composer test:*)"
+      "mcp__serena__think_about_collected_information",
+      "mcp__serena__think_about_task_adherence",
+      "mcp__serena__insert_after_symbol",
+      "mcp__serena__think_about_whether_you_are_done"
     ]
   },
   "enableAllProjectMcpServers": true,

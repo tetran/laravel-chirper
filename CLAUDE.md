@@ -1,5 +1,5 @@
 ## Task Workflow
-  - Follow `docs/WORKFLOW.md` - Issue creation, planning, implementation
+  - ALWAYS follow the workflow documented in `docs/WORKFLOW.md`. When you enter a new phase, always make sure you are following the workflow.
   - ALWAYS update `docs/progress/issue-XX.md` during work
 
 ## Tech Stack
