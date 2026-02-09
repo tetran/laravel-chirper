@@ -28,6 +28,8 @@ class LikeController extends Controller
 
     public function destroy(Request $request, Chirp $chirp)
     {
+        $this->authorize('like', $chirp);
+
         $chirp->likes()->detach(auth()->id());
 
         if ($request->wantsJson()) {

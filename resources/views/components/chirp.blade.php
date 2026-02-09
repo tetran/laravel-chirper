@@ -63,7 +63,7 @@
                         @can('like', $chirp)
                             <button
                                 type="button"
-                                class="btn btn-ghost btn-xs like-button {{ $chirp->likes->contains(auth()->user()) ? 'text-error' : 'text-base-content/40 hover:text-error' }}"
+                                class="btn btn-ghost btn-xs like-button transition-transform hover:scale-110 {{ $chirp->likes->contains(auth()->user()) ? 'text-error' : 'text-base-content/40 hover:text-error' }}"
                                 data-chirp-id="{{ $chirp->id }}"
                                 data-liked="{{ $chirp->likes->contains(auth()->user()) ? 'true' : 'false' }}"
                                 aria-label="{{ $chirp->likes->contains(auth()->user()) ? 'Unlike this chirp' : 'Like this chirp' }}"

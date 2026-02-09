@@ -50,6 +50,15 @@ test('user cannot like their own chirp', function () {
     expect($chirp->likes()->count())->toBe(0);
 });
 
+test('user cannot unlike their own chirp', function () {
+    $user = User::factory()->create();
+    $chirp = Chirp::factory()->for($user)->create();
+
+    $response = actingAs($user)->delete("/chirps/{$chirp->id}/likes");
+
+    $response->assertForbidden();
+});
+
 test('user cannot like the same chirp twice', function () {
     $user = User::factory()->create();
     $chirpOwner = User::factory()->create();
