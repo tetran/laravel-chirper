@@ -13,11 +13,24 @@ class ChirpController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $tab = auth()->check() ? $request->input('tab', 'all') : 'all';
 
-        $query = Chirp::with('user')
+        $query = Chirp::with(['user' => function ($q) {
+            $q->withCount(['followers', 'following']);
+
+            if (auth()->check()) {
+                $q->with(['followers' => function ($fq) {
+                    $fq->where('follower_id', auth()->id());
+                }]);
+            }
+        }])
             ->withCount('likes')
             ->search($search)
             ->latest();
+
+        if ($tab === 'following' && auth()->check()) {
+            $query->fromFollowing(auth()->user());
+        }
 
         if (auth()->check()) {
             $query->with(['likes' => function ($q) {
@@ -25,11 +38,12 @@ class ChirpController extends Controller
             }]);
         }
 
-        $chirps = $query->paginate(15);
+        $chirps = $query->paginate(15)->withQueryString();
 
         return view('home', [
             'chirps' => $chirps,
             'search' => $search ?? '',
+            'tab' => $tab,
         ]);
     }
 

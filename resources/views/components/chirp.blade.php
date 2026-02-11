@@ -30,6 +30,26 @@
                         @else
                             <span class="text-sm font-semibold">Anonymous</span>
                         @endif
+
+                        {{-- Follow Button --}}
+                        @auth
+                            @if ($chirp->user && $chirp->user->id !== auth()->id())
+                                @php
+                                    $isFollowing = $chirp->user->relationLoaded('followers')
+                                        ? $chirp->user->followers->contains(auth()->user())
+                                        : false;
+                                @endphp
+                                <button
+                                    type="button"
+                                    class="follow-button btn btn-xs {{ $isFollowing ? 'btn-primary' : 'btn-outline btn-primary' }}"
+                                    data-user-id="{{ $chirp->user->id }}"
+                                    data-following="{{ $isFollowing ? 'true' : 'false' }}"
+                                >
+                                    <span class="follow-text">{{ $isFollowing ? 'Following' : 'Follow' }}</span>
+                                </button>
+                            @endif
+                        @endauth
+
                         <span class="text-base-content/60">·</span>
                         <span class="text-sm text-base-content/60">{{ $chirp->created_at->diffForHumans() }}</span>
                         @if ($chirp->updated_at->gt($chirp->created_at->addSeconds(5)))
@@ -56,6 +76,16 @@
                         </div>
                     @endcan
                 </div>
+
+                {{-- Social Counters --}}
+                @if ($chirp->user)
+                    <div class="flex items-center gap-2 text-xs text-base-content/50">
+                        <span class="followers-count" data-user-id="{{ $chirp->user->id }}">{{ $chirp->user->followers_count ?? 0 }}</span> followers
+                        <span>·</span>
+                        <span>{{ $chirp->user->following_count ?? 0 }}</span> following
+                    </div>
+                @endif
+
                 <p class="mt-1">{{ $chirp->message }}</p>
 
                 <div class="mt-2 flex items-center gap-1">

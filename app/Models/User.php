@@ -60,4 +60,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Chirp::class, 'likes')->withTimestamps();
     }
+
+    public function following(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')->withTimestamps();
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')->withTimestamps();
+    }
 }
