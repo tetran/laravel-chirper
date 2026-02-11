@@ -8,6 +8,7 @@
 
         <!-- Search Form -->
         <form method="GET" action="/" class="mt-8">
+            <input type="hidden" name="tab" value="{{ $tab }}">
             <div class="form-control">
                 <div class="join w-full">
                     <input
@@ -25,13 +26,27 @@
                         Search
                     </button>
                     @if($search)
-                        <a href="/" class="btn btn-ghost join-item">
+                        <a href="/?tab={{ $tab }}" class="btn btn-ghost join-item">
                             Clear
                         </a>
                     @endif
                 </div>
             </div>
         </form>
+
+        <!-- Tabs -->
+        @auth
+            <div role="tablist" class="tabs tabs-bordered mt-8">
+                <a role="tab" href="/?search={{ urlencode($search) }}&tab=all"
+                   class="tab {{ $tab === 'all' ? 'tab-active' : '' }}">
+                    All Chirps
+                </a>
+                <a role="tab" href="/?search={{ urlencode($search) }}&tab=following"
+                   class="tab {{ $tab === 'following' ? 'tab-active' : '' }}">
+                    Following
+                </a>
+            </div>
+        @endauth
 
         <!-- Chirp Form -->
         <div class="card bg-base-100 shadow mt-8">
@@ -78,6 +93,8 @@
                             <p class="mt-4 text-base-content/60">
                                 @if($search)
                                     No chirps found matching "{{ $search }}". Try a different search term.
+                                @elseif($tab === 'following')
+                                    Follow some users to see their chirps here!
                                 @else
                                     No chirps yet. Be the first to chirp!
                                 @endif

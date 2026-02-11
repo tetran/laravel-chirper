@@ -55,6 +55,14 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can follow the model.
+     */
+    public function follow(User $user, User $model): bool
+    {
+        return ! $user->is($model);
+    }
+
+    /**
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(User $user, User $model): bool

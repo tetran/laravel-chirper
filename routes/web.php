@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/chirps/{chirp}/likes', [LikeController::class, 'store'])->name('chirps.likes.store');
     Route::delete('/chirps/{chirp}/likes', [LikeController::class, 'destroy'])->name('chirps.likes.destroy');
+
+    Route::post('/users/{user}/follow', [FollowController::class, 'store'])->name('users.follow.store');
+    Route::delete('/users/{user}/follow', [FollowController::class, 'destroy'])->name('users.follow.destroy');
 });
 
 // Profile routes

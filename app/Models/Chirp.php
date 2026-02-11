@@ -34,4 +34,11 @@ class Chirp extends Model
     {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
+
+    public function scopeFromFollowing(Builder $query, User $user): Builder
+    {
+        $followingIds = $user->following()->pluck('users.id');
+
+        return $query->whereIn('user_id', $followingIds->push($user->id));
+    }
 }
