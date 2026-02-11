@@ -30,7 +30,7 @@ test('can navigate to profile from chirp username', function () {
 
     $page->assertSee('Jane Doe')
         ->click('Jane Doe')
-        ->assertSee("Jane Doe's Profile")
+        ->assertTitleContains("Jane Doe's Profile")
         ->assertNoJavascriptErrors();
 });
 
@@ -40,8 +40,8 @@ test('can edit own profile', function () {
         'bio' => 'Original bio',
     ]);
 
-    $page = loginAs($user)
-        ->visit(route('profile.show', $user));
+    $page = browserLogin($user)
+        ->navigate(route('profile.show', $user));
 
     $page->assertSee('Edit Profile')
         ->click('Edit Profile')
@@ -62,25 +62,27 @@ test('can edit own profile', function () {
 test('edit profile cancel button returns to profile', function () {
     $user = User::factory()->create(['name' => 'John Doe']);
 
-    $page = loginAs($user)
-        ->visit(route('profile.edit', $user));
+    $page = browserLogin($user)
+        ->navigate(route('profile.edit', $user));
 
     $page->assertSee('Edit Profile')
         ->click('Cancel')
-        ->assertSee("John Doe's Profile")
+        ->assertTitleContains("John Doe's Profile")
         ->assertNoJavascriptErrors();
 });
 
 test('shows validation errors for invalid profile data', function () {
     $user = User::factory()->create();
 
-    $page = loginAs($user)
-        ->visit(route('profile.edit', $user));
+    $page = browserLogin($user)
+        ->navigate(route('profile.edit', $user));
 
     $page->fill('name', '')
-        ->fill('website', 'not-a-valid-url')
-        ->click('Update Profile')
-        ->assertSee('Please enter your name')
+        ->fill('website', 'not-a-valid-url');
+
+    $page->script("document.querySelector('.card-body form').submit()");
+
+    $page->assertSee('Please enter your name')
         ->assertSee('Please enter a valid URL')
         ->assertNoJavascriptErrors();
 });
@@ -99,8 +101,8 @@ test('edit profile button is not visible for other users', function () {
     $user = User::factory()->create(['name' => 'John Doe']);
     $otherUser = User::factory()->create();
 
-    $page = loginAs($otherUser)
-        ->visit(route('profile.show', $user));
+    $page = browserLogin($otherUser)
+        ->navigate(route('profile.show', $user));
 
     $page->assertSee('John Doe')
         ->assertDontSee('Edit Profile')

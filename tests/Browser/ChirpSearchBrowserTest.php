@@ -42,7 +42,7 @@ test('search input preserves value after search', function () {
 
     $page->fill('search', 'Searchable')
         ->click('Search')
-        ->assertInputValue('search', 'Searchable');
+        ->assertValue('input[name="search"]', 'Searchable');
 });
 
 test('clear button redirects to home and clears search', function () {
@@ -53,7 +53,7 @@ test('clear button redirects to home and clears search', function () {
 
     $page->assertSee('Clear')
         ->click('Clear')
-        ->assertInputValue('search', '');
+        ->assertValue('input[name="search"]', '');
 });
 
 test('displays no results message when search returns nothing', function () {
